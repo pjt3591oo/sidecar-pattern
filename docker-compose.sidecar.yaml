@@ -1,0 +1,20 @@
+version: '3'
+services:
+  # git pull을 주기적으로 수행하여 최신 파일 업데이트
+  editor:
+    image: ubuntu
+    container_name: editor
+    volumes:
+      - ./www:/home/www
+    stdin_open: true
+    tty: true
+
+  streaming:
+    image: ubuntu
+    container_name: streaming
+    command: /bin/sh -c "chmod +x /home/streaming.sh && /home/streaming.sh && /bin/bash"
+    volumes:
+      - ./log:/home/log
+      - ./streaming.sh:/home/streaming.sh
+    stdin_open: true
+    tty: true
